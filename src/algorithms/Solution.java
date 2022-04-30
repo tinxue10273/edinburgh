@@ -1,20 +1,24 @@
-import java.util.Arrays;
-
 class Solution {
-    public int leastInterval(char[] tasks, int n) {
-        int[] cnts = new int[26];
-        for (char ch : tasks) {
-            cnts[ch - 'A']++;
+    public int reverse(int x) {
+        if (x == Integer.MIN_VALUE) {
+            return 0;
         }
-        Arrays.sort(cnts);
-        int maxCnt = 0;
-        for (int i = 25; i >= 0; i--) {
-            if (cnts[i] == cnts[25]) {
-                maxCnt++;
-            } else {
-                break;
-            }
+        boolean flag = true;
+        if (x < 0) {
+            flag = false;
+            x = -x;
         }
-        return Math.max((cnts[25] - 1) * (n + 1) + maxCnt, tasks.length);
+        String r = "";
+        while (x > 0) {
+            r = r + (x % 10);
+            x /= 10;
+        }
+        int res = 0;
+        try {
+            res = Integer.parseInt(r);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+        return flag ? res : -res;
     }
 }
