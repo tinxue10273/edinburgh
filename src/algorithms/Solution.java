@@ -1,24 +1,30 @@
-class Solution {
-    public int reverse(int x) {
-        if (x == Integer.MIN_VALUE) {
-            return 0;
+import dataStructures.ListNode;
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ * int val;
+ * ListNode next;
+ * ListNode(int x) {
+ * val = x;
+ * next = null;
+ * }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+
+        if (headA == null || headB == null) {
+            return null;
         }
-        boolean flag = true;
-        if (x < 0) {
-            flag = false;
-            x = -x;
+
+        ListNode l1 = headA;
+        ListNode l2 = headB;
+
+        while (l1 != l2) {
+            l1 = l1 == null ? headB : l1.next;
+            l2 = l2 == null ? headA : l2.next;
         }
-        String r = "";
-        while (x > 0) {
-            r = r + (x % 10);
-            x /= 10;
-        }
-        int res = 0;
-        try {
-            res = Integer.parseInt(r);
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-        return flag ? res : -res;
+        return l1;
     }
 }
