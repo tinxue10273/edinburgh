@@ -20,7 +20,7 @@ public class JavaTestReentrantLock {
     }
 
 
-    static class printABC implements Runnable{
+    static class printABC implements Runnable {
 
         private Lock lock;
         private Condition currentPoint;
@@ -40,14 +40,14 @@ public class JavaTestReentrantLock {
         public void run() {
             lock.lock();
             try {
-                for(int i = 0; i< 10; i++){
+                for (int i = 0; i < 10; i++) {
 
-                    while (state != targetState){
+                    while (state != targetState) {
                         currentPoint.await();
                     }
                     System.out.println(Thread.currentThread().getName() + " " + printChar);
                     state++;
-                    if(state > 3){
+                    if (state > 3) {
                         state = 1;
                     }
                     //nextPoint.signalAll();
@@ -55,7 +55,7 @@ public class JavaTestReentrantLock {
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
                 lock.unlock();
             }
         }
